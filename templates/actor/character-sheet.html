@@ -1,37 +1,85 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}} flexcol" autocomplete="off">
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Ім'я персонажа"/></h1>
     </div>
   </header>
-  <nav class="sheet-tabs tabs" data-group="primary"><a class="item" data-tab="main">Головне</a><a class="item" data-tab="items">Аспекти та Ресурси</a></nav>
+
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="main">{{localize "DYKEPOLE.Main"}}</a>
+    <a class="item" data-tab="items">{{localize "DYKEPOLE.Items"}}</a>
+  </nav>
+
   <section class="sheet-body">
-    <div class="tab main" data-group="primary" data-tab="main">
-      <fieldset><legend>{{localize "DYKEPOLE.Skills"}}</legend>
+    <div class="tab" data-group="primary" data-tab="main">
+      
+      <!-- Навички -->
+      <div class="skills-section">
+        <h2>{{localize "DYKEPOLE.Skills"}}</h2>
         <div class="skills-grid">
-          {{#each system.skills as |skill key|}}
-          <div class="skill-entry"><a class="skill-label rollable" data-skill="{{key}}">{{localize (concat "DYKEPOLE.Skill" (titleCase key))}}</a><input type="number" name="system.skills.{{key}}" value="{{skill}}" min="0" max="3" /></div>
+          {{#each system.skills as |skill skillKey|}}
+          <div class="skill">
+            <label>{{localize (concat "DYKEPOLE.Skill" (capitalize skillKey))}}</label>
+            <input type="number" name="system.skills.{{skillKey}}" value="{{skill}}" min="0" max="4"/>
+            <button type="button" class="rollable" data-skill="{{skillKey}}">
+              <i class="fas fa-dice-d6"></i>
+            </button>
+          </div>
           {{/each}}
         </div>
-      </fieldset>
-      <fieldset><legend>{{localize "DYKEPOLE.Counters"}}</legend>
-        <div class="counters-grid">
-            <div class="counter"><h3>{{localize "DYKEPOLE.Steppe"}}</h3><span>{{localize "DYKEPOLE.Level"}} {{system.counters.steppe.level}} | {{localize "DYKEPOLE.Track"}} {{system.counters.steppe.track}}/{{system.counters.steppe.track_max}}</span></div>
-            <div class="counter"><h3>{{localize "DYKEPOLE.Ruin"}}</h3><span>{{localize "DYKEPOLE.Level"}} {{system.counters.ruin.level}} | {{localize "DYKEPOLE.Track"}} {{system.counters.ruin.track}}/{{system.counters.ruin.track_max}}</span></div>
+      </div>
+
+      <!-- Знання -->
+      <div class="knowledge-section">
+        <h2>Знання</h2>
+        <div class="knowledge-grid">
+          {{#each system.knowledge as |knowledge knowledgeKey|}}
+          <div class="knowledge">
+            <label>{{capitalize knowledgeKey}}</label>
+            <input type="number" name="system.knowledge.{{knowledgeKey}}" value="{{knowledge}}" min="0" max="3"/>
+          </div>
+          {{/each}}
         </div>
-      </fieldset>
+      </div>
+
+      <!-- Лічильники -->
+      <div class="counters-section">
+        <h2>{{localize "DYKEPOLE.Counters"}}</h2>
+        {{#each system.counters as |counter counterKey|}}
+        <div class="counter">
+          <h3>{{localize (concat "DYKEPOLE." (capitalize counterKey))}}</h3>
+          <div class="counter-fields">
+            <label>{{localize "DYKEPOLE.Level"}}</label>
+            <input type="number" name="system.counters.{{counterKey}}.level" value="{{counter.level}}" min="0"/>
+            <label>{{localize "DYKEPOLE.Track"}}</label>
+            <input type="number" name="system.counters.{{counterKey}}.track" value="{{counter.track}}" min="0" max="{{counter.track_max}}"/>
+            <span>/ {{counter.track_max}}</span>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+
     </div>
-    <div class="tab items" data-group="primary" data-tab="items">
-        <fieldset><legend>{{localize "DYKEPOLE.Aspects"}}</legend>
-            <ul class="items-list">
-            {{#each actor.items as |item id|}}
-              {{#if (eq item.type "aspect")}}
-                <li class="item" data-item-id="{{item.id}}"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/><h4 class="item-name">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>
-              {{/if}}
-            {{/each}}
-            </ul>
-        </fieldset>
+
+    <div class="tab" data-group="primary" data-tab="items">
+      <div class="items-section">
+        <h2>Предмети</h2>
+        <div class="items-list">
+          {{#each items as |item|}}
+          <div class="item" data-item-id="{{item.id}}">
+            <img src="{{item.img}}" height="24" width="24"/>
+            <span class="item-name">{{item.name}}</span>
+            <span class="item-type">{{item.type}}</span>
+            <div class="item-controls">
+              <a class="item-edit" title="Редагувати"><i class="fas fa-edit"></i></a>
+              <a class="item-delete" title="Видалити"><i class="fas fa-trash"></i></a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
     </div>
+
   </section>
 </form>
