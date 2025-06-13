@@ -1,33 +1,97 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <header class="sheet-header"><img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/><div class="header-fields"><h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Назва табору"/></h1></div></header>
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Назва табору"/>
+      </h1>
+    </div>
+  </header>
+
   <section class="sheet-body">
-    <div class="camp-resources"><div class="form-group"><label>Прагнення табору</label><input type="text" name="system.aspiration" value="{{system.aspiration}}" /></div><div class="form-group"><label>Вантаж</label><input type="number" name="system.cargo.value" value="{{system.cargo.value}}" /> / <input type="number" name="system.cargo.max" value="{{system.cargo.max}}" /></div></div>
-    <fieldset><legend>Рейтинги табору</legend>
-        <div class="ratings-grid">
-            {{#each system.ratings as |rating key|}}
-            <div class="rating-entry"><a class="rating-label rollable-rating" data-rating="{{key}}">{{localize (concat "DYKEPOLE.Rating" (titleCase key))}}</a><input type="number" name="system.ratings.{{key}}.value" value="{{rating.value}}" min="0" max="{{rating.max}}" /></div>
-            {{/each}}
+    <!-- Ресурси табору -->
+    <div class="camp-resources">
+      <div class="form-group">
+        <label>{{localize "DYKEPOLE.CampAspiration"}}</label>
+        <input type="text" name="system.aspiration" value="{{system.aspiration}}" placeholder="Прагнення табору..."/>
+      </div>
+      <div class="form-group">
+        <label>{{localize "DYKEPOLE.Cargo"}}</label>
+        <div style="display: flex; align-items: center; gap: 5px;">
+          <input type="number" name="system.cargo.value" value="{{system.cargo.value}}" min="0" max="{{system.cargo.max}}" style="width: 60px;"/>
+          <span>/</span>
+          <input type="number" name="system.cargo.max" value="{{system.cargo.max}}" min="1" style="width: 60px;"/>
         </div>
+      </div>
+    </div>
+
+    <!-- Рейтинги табору -->
+    <fieldset>
+      <legend>{{localize "DYKEPOLE.CampRatings"}}</legend>
+      <div class="ratings-grid">
+        {{#each system.ratings as |rating key|}}
+        <div class="rating-entry">
+          <a class="rating-label rollable-rating" data-rating="{{key}}">
+            {{localize (concat "DYKEPOLE.Rating" (titleCase key))}}
+          </a>
+          <input type="number" name="system.ratings.{{key}}.value" value="{{rating.value}}" min="0" max="{{rating.max}}"/>
+          <span>/{{rating.max}}</span>
+        </div>
+        {{/each}}
+      </div>
     </fieldset>
+
+    <!-- Списки предметів -->
     <div class="camp-lists">
-        <div class="faction-list"><h3>Фракції</h3>
-            <ul class="items-list">
-            {{#each actor.items as |item id|}}
-              {{#if (eq item.type "faction")}}
-                <li class="item" data-item-id="{{item.id}}"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/><h4 class="item-name">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a></div></li>
-              {{/if}}
-            {{/each}}
-            </ul>
-        </div>
-        <div class="aspect-list"><h3>Аспекти табору</h3>
-             <ul class="items-list">
-            {{#each actor.items as |item id|}}
-              {{#if (eq item.type "aspect")}}
-                <li class="item" data-item-id="{{item.id}}"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/><h4 class="item-name">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a></div></li>
-              {{/if}}
-            {{/each}}
-            </ul>
-        </div>
+      <!-- Фракції -->
+      <div class="faction-list">
+        <h3>{{localize "DYKEPOLE.Factions"}}</h3>
+        <a class="item-create" data-type="faction" title="Створити фракцію">
+          <i class="fas fa-plus"></i> {{localize "DYKEPOLE.Add"}}
+        </a>
+        <ul class="items-list">
+          {{#each factions as |item id|}}
+          <li class="item" data-item-id="{{item.id}}">
+            <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+            <h4 class="item-name">{{item.name}}</h4>
+            <span class="item-type">{{item.system.track.value}}/{{item.system.track.max}}</span>
+            <div class="item-controls">
+              <a class="item-control item-edit" title="{{localize 'DYKEPOLE.Edit'}}">
+                <i class="fas fa-edit"></i>
+              </a>
+              <a class="item-control item-delete" title="{{localize 'DYKEPOLE.Delete'}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+
+      <!-- Аспекти табору -->
+      <div class="aspect-list">
+        <h3>{{localize "DYKEPOLE.CampAspects"}}</h3>
+        <a class="item-create" data-type="aspect" title="Створити аспект табору">
+          <i class="fas fa-plus"></i> {{localize "DYKEPOLE.Add"}}
+        </a>
+        <ul class="items-list">
+          {{#each aspects as |item id|}}
+          <li class="item" data-item-id="{{item.id}}">
+            <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+            <h4 class="item-name">{{item.name}}</h4>
+            <span class="item-type">{{item.system.track.value}}/{{item.system.track.max}}</span>
+            <div class="item-controls">
+              <a class="item-control item-edit" title="{{localize 'DYKEPOLE.Edit'}}">
+                <i class="fas fa-edit"></i>
+              </a>
+              <a class="item-control item-delete" title="{{localize 'DYKEPOLE.Delete'}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
     </div>
   </section>
 </form>

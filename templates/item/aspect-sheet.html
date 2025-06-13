@@ -1,1 +1,31 @@
-<form class="{{cssClass}}" autocomplete="off"><header class="sheet-header"><img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/><div class="header-fields"><h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Назва аспекту"/></h1></div></header><section class="sheet-body"><fieldset><legend>Трек Аспекту</legend><div class="form-group" style="display: flex; align-items: center; gap: 10px;"><label>Поточне значення:</label><input type="number" name="system.track.value" value="{{system.track.value}}"/><label>Максимум:</label><input type="number" name="system.track.max" value="{{system.track.max}}"/></div></fieldset><fieldset><legend>Здібності</legend><div class="form-group"><label>Опис здібностей (кожна з нового рядка)</label>{{editor system.abilities target="system.abilities" button=true owner=owner editable=editable}}</div></fieldset></section></form>
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{item.name}}" placeholder="Назва аспекту"/>
+      </h1>
+    </div>
+  </header>
+
+  <section class="sheet-body">
+    <fieldset>
+      <legend>Трек Аспекту</legend>
+      <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+        <label>{{localize "DYKEPOLE.Current"}}:</label>
+        <input type="number" name="system.track.value" value="{{system.track.value}}" min="0" max="{{system.track.max}}" style="width: 60px;"/>
+        <span>/</span>
+        <label>{{localize "DYKEPOLE.Max"}}:</label>
+        <input type="number" name="system.track.max" value="{{system.track.max}}" min="1" max="12" style="width: 60px;"/>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Здібності</legend>
+      <div class="form-group">
+        <label>Опис здібностей аспекту</label>
+        {{editor system.abilities target="system.abilities" button=true owner=owner editable=editable}}
+      </div>
+    </fieldset>
+  </section>
+</form>

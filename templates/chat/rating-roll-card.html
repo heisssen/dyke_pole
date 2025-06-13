@@ -1,1 +1,17 @@
-<div class="dykepole-card"><header class="card-header"><h3>Кидок рейтингу: {{ratingName}}</h3></header><div class="card-content"><div class="roll-result"><h2>{{resultText}}</h2></div><div class="dice-roll">{{{diceRoll roll}}}</div></div></div>
+<div class="dykepole roll-card {{resultClass}}">
+  <div class="roll-header">
+    <h3>{{ratingName}}</h3>
+  </div>
+  
+  <div class="roll-result">
+    {{resultText}}
+  </div>
+  
+  <div class="roll-details">
+    <div>Формула: {{rollFormula}}</div>
+    <div>Результат: [{{#each rollResults}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}]</div>
+    {{#if (gt advantage 0)}}
+    <div>Переваги: +{{advantage}}к6</div>
+    {{/if}}
+  </div>
+</div>

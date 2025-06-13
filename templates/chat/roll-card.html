@@ -1,1 +1,24 @@
-<div class="dykepole-card"><header class="card-header"><h3>{{localize "DYKEPOLE.RollResult"}}: {{skillName}}</h3></header><div class="card-content"><div class="roll-result {{resultClass}}"><h2>{{resultText}}</h2></div>{{#if hasTwist}}<div class="roll-twist"><h2>{{localize "DYKEPOLE.Twist"}}</h2></div>{{/if}}<div class="roll-marks" style="text-align: center; margin-bottom: 10px; background: #eee; padding: 5px; border-radius: 3px;"><strong>Прогрес на треку: {{finalMarks}} позначки</strong></div><div class="dice-roll"><p><strong>Кидок:</strong> {{rollFormula}} | <strong>Зріз:</strong> {{cut}} | <strong>Вплив:</strong> {{impact}}</p><p><strong>Результати:</strong>{{#each rollResults}}<span class="die">{{this}}</span>{{/each}}</p></div></div></div>
+<div class="dykepole roll-card {{resultClass}}">
+  <div class="roll-header">
+    <h3>{{skillName}}</h3>
+  </div>
+  
+  <div class="roll-result">
+    {{resultText}}
+    {{#if hasTwist}}
+    <span class="twist-indicator"> + {{localize "DYKEPOLE.Twist"}}</span>
+    {{/if}}
+  </div>
+  
+  <div class="roll-details">
+    <div>Формула: {{rollFormula}}</div>
+    <div>Результат: [{{#each rollResults}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}]</div>
+    {{#if (gt cut 0)}}
+    <div>Зріз: {{cut}}</div>
+    {{/if}}
+    {{#unless (eq impact "normal")}}
+    <div>Вплив: {{impact}}</div>
+    {{/unless}}
+    <div><strong>Підсумкові мітки: {{finalMarks}}</strong></div>
+  </div>
+</div>

@@ -9,34 +9,70 @@ export class DykePoleCharacterSheet extends ActorSheet {
     });
   }
 
+  getData() {
+    const context = super.getData();
+    
+    // Організація предметів за типами
+    context.aspects = this.actor.items.filter(i => i.type === "aspect");
+    context.equipment = this.actor.items.filter(i => i.type === "equipment");
+    context.shards = this.actor.items.filter(i => i.type === "shard");
+    context.maps = this.actor.items.filter(i => i.type === "map");
+    context.injuries = this.actor.items.filter(i => i.type === "injury");
+    context.bonuses = this.actor.items.filter(i => i.type === "bonus");
+    
+    return context;
+  }
+
   activateListeners(html) {
     super.activateListeners(html);
     if (!this.isEditable) return;
+    
+    // Обробка кидків навичок
     html.find('.rollable').click(this._onSkillRoll.bind(this));
-    // Add listeners for item controls
+    
+    // Обробка предметів
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
+    
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       this.actor.deleteEmbeddedDocuments("Item", [li.data("itemId")]);
     });
+
+    // Обробка додавання нових предметів
+    html.find('.item-create').click(this._onItemCreate.bind(this));
   }
 
   async _onSkillRoll(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const skillKey = element.dataset.skill;
-    const dialogContent = `...`; // The dialog code from previous steps
+    const skillName = game.i18n.localize(`DYKEPOLE.Skill${skillKey.charAt(0).toUpperCase() + skillKey.slice(1)}`);
+    
     new Dialog({
-      title: `Кидок: ${element.textContent}`,
+      title: `Кидок: ${skillName}`,
       content: `
         <form>
-          <div class="form-group"><label>Переваги:</label><input type="number" name="advantage" value="0" min="0" max="3"/></div>
-          <div class="form-group"><label>Зріз:</label><input type="number" name="cut" value="0" min="0" max="3"/></div>
-          <div class="form-group"><label>Вплив:</label><select name="impact"><option value="low">Низький</option><option value="normal" selected>Середній</option><option value="high">Високий</option><option value="massive">Масивний</option></select></div>
+          <div class="form-group">
+            <label>Переваги:</label>
+            <input type="number" name="advantage" value="0" min="0" max="3"/>
+          </div>
+          <div class="form-group">
+            <label>Зріз:</label>
+            <input type="number" name="cut" value="0" min="0" max="3"/>
+          </div>
+          <div class="form-group">
+            <label>Вплив:</label>
+            <select name="impact">
+              <option value="low">Низький</option>
+              <option value="normal" selected>Середній</option>
+              <option value="high">Високий</option>
+              <option value="massive">Масивний</option>
+            </select>
+          </div>
         </form>`,
       buttons: {
         roll: {
@@ -53,7 +89,21 @@ export class DykePoleCharacterSheet extends ActorSheet {
           }
         }
       },
-      default: "roll"
+      default: "roll",
+      classes: ["dykepole", "dialog"]
     }).render(true);
+  }
+
+  async _onItemCreate(event) {
+    event.preventDefault();
+    const header = event.currentTarget;
+    const type = header.dataset.type;
+    
+    const itemData = {
+      name: `Новий ${game.i18n.localize(`DYKEPOLE.${type.charAt(0).toUpperCase() + type.slice(1)}`)}`,
+      type: type
+    };
+    
+    await this.actor.createEmbeddedDocuments("Item", [itemData]);
   }
 }

@@ -48,5 +48,13 @@
   "DYKEPOLE.Description": "Опис",
   "DYKEPOLE.Value": "Значення",
   "DYKEPOLE.Max": "Максимум",
-  "DYKEPOLE.Current": "Поточне"
+  "DYKEPOLE.Current": "Поточне",
+  "DYKEPOLE.Cargo": "Вантаж",
+  "DYKEPOLE.CampAspiration": "Прагнення табору",
+  "DYKEPOLE.CampRatings": "Рейтинги табору",
+  "DYKEPOLE.Factions": "Фракції",
+  "DYKEPOLE.CampAspects": "Аспекти табору",
+  "DYKEPOLE.Injuries": "Поранення",
+  "DYKEPOLE.Bonuses": "Бонуси",
+  "DYKEPOLE.TempAspects": "Тимчасові аспекти"
 }
