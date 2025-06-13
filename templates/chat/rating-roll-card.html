@@ -1,17 +1,16 @@
-<div class="dykepole roll-card {{resultClass}}">
-  <div class="roll-header">
-    <h3>{{ratingName}}</h3>
-  </div>
-  
-  <div class="roll-result">
-    {{resultText}}
-  </div>
-  
-  <div class="roll-details">
-    <div>Формула: {{rollFormula}}</div>
-    <div>Результат: [{{#each rollResults}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}]</div>
-    {{#if (gt advantage 0)}}
-    <div>Переваги: +{{advantage}}к6</div>
-    {{/if}}
-  </div>
+<div class="dykepole-card roll-card {{resultClass}}">
+    <header class="card-header">
+        <h3>{{localize "DYKEPOLE.RollResult"}}: {{ratingName}}</h3>
+    </header>
+    <div class="card-content">
+        <div class="roll-result">
+            <h2>{{resultText}}</h2>
+        </div>
+        <div class="dice-roll">
+            <strong>{{localize "DYKEPOLE.Roll"}}:</strong>
+            {{#each rollResults}}
+            <span class="die">{{this}}</span>
+            {{/each}}
+        </div>
+    </div>
 </div>

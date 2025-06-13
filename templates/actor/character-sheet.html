@@ -2,242 +2,115 @@
   <header class="sheet-header">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
     <div class="header-fields">
-      <h1 class="charname">
-        <input name="name" type="text" value="{{actor.name}}" placeholder="Ім'я персонажа"/>
-      </h1>
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'DYKEPOLE.Name'}}"/></h1>
     </div>
   </header>
-
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="main">{{localize "DYKEPOLE.Main"}}</a>
-    <a class="item" data-tab="skills">{{localize "DYKEPOLE.Skills"}}</a>
     <a class="item" data-tab="items">{{localize "DYKEPOLE.Items"}}</a>
   </nav>
-
   <section class="sheet-body">
-    <div class="tab" data-group="primary" data-tab="main">
-      <!-- Навички -->
-      <div class="skills-section">
-        <h2>{{localize "DYKEPOLE.Skills"}}</h2>
-        <div class="skills-grid">
-          {{#each system.skills as |skill key|}}
-          <div class="skill">
-            <label>{{localize (concat "DYKEPOLE.Skill" (titleCase key))}}</label>
-            <input type="number" name="system.skills.{{key}}" value="{{skill}}" min="0" max="4"/>
-            <button type="button" class="rollable" data-skill="{{key}}">{{localize "DYKEPOLE.Roll"}}</button>
+    <div class="tab main" data-group="primary" data-tab="main">
+      <div class="main-grid">
+        <section class="skills-section">
+          <h3><i class="fas fa-dice-d6"></i> {{localize "DYKEPOLE.Skills"}}</h3>
+          <div class="skills-grid">
+            {{#each system.skills as |skill key|}}
+            <div class="skill">
+              <label class="rollable-skill" data-skill="{{key}}">{{localize (concat "DYKEPOLE.Skill" (titleCase key))}}</label>
+              <input type="number" name="system.skills.{{key}}" value="{{skill}}" min="0" max="3" />
+            </div>
+            {{/each}}
           </div>
-          {{/each}}
-        </div>
-      </div>
-
-      <!-- Знання -->
-      <div class="knowledge-section">
-        <h2>{{localize "DYKEPOLE.Knowledge"}}</h2>
-        <div class="knowledge-grid">
-          {{#each system.knowledge as |knowledge key|}}
-          <div class="knowledge">
-            <label>{{localize (concat "DYKEPOLE." (titleCase key))}}</label>
-            <input type="number" name="system.knowledge.{{key}}" value="{{knowledge}}" min="0" max="3"/>
+        </section>
+        <section class="secondary-stats">
+          <div class="knowledge-section">
+            <h3><i class="fas fa-book-open"></i> {{localize "DYKEPOLE.Knowledge"}}</h3>
+            <div class="knowledge-grid">
+              {{#each system.knowledge as |level key|}}
+              <div class="knowledge">
+                <label>{{localize (concat "DYKEPOLE." (titleCase key))}}</label>
+                <input type="number" name="system.knowledge.{{key}}" value="{{level}}" min="0" />
+              </div>
+              {{/each}}
+            </div>
           </div>
-          {{/each}}
-        </div>
-      </div>
-
-      <!-- Лічильники -->
-      <div class="counters-section">
-        <h2>{{localize "DYKEPOLE.Counters"}}</h2>
-        {{#each system.counters as |counter key|}}
-        <div class="counter">
-          <h3>{{localize (concat "DYKEPOLE." (titleCase key))}}</h3>
-          <div class="counter-fields">
-            <label>{{localize "DYKEPOLE.Level"}}:</label>
-            <input type="number" name="system.counters.{{key}}.level" value="{{counter.level}}" min="0"/>
-            <label>{{localize "DYKEPOLE.Track"}}:</label>
-            <input type="number" name="system.counters.{{key}}.track" value="{{counter.track}}" min="0" max="{{counter.track_max}}"/>
-            / {{counter.track_max}}
+          <div class="counters-section">
+            <h3><i class="fas fa-heartbeat"></i> {{localize "DYKEPOLE.Counters"}}</h3>
+            {{#each system.counters as |counter key|}}
+            <div class="counter">
+              <h4>{{localize (concat "DYKEPOLE." (titleCase key))}} ({{localize "DYKEPOLE.Level"}} {{counter.level}})</h4>
+              <div class="track" data-path="system.counters.{{key}}.track" data-value="{{counter.track}}">
+                {{#numLoop counter.track_max}}
+                <span class="track-box {{#if (gt ../counter.track this)}}filled{{/if}}" data-index="{{this}}"></span>
+                {{/numLoop}}
+              </div>
+            </div>
+            {{/each}}
           </div>
-        </div>
-        {{/each}}
-      </div>
-
-      <!-- Прагнення -->
-      <div class="aspirations-section">
-        <h2>{{localize "DYKEPOLE.Aspirations"}}</h2>
-        <div class="aspirations-list">
-          {{#if system.aspirations}}
-            <textarea name="system.aspirations">{{#if (eq (typeof system.aspirations) "string")}}{{system.aspirations}}{{else}}{{join system.aspirations "\n"}}{{/if}}</textarea>
-          {{else}}
-            <textarea name="system.aspirations" placeholder="Прагнення персонажа..."></textarea>
-          {{/if}}
-        </div>
+        </section>
       </div>
     </div>
-
-    <div class="tab" data-group="primary" data-tab="skills">
-      <div class="skills-section">
-        <h2>{{localize "DYKEPOLE.Skills"}}</h2>
-        <div class="skills-grid">
-          {{#each system.skills as |skill key|}}
-          <div class="skill">
-            <label>{{localize (concat "DYKEPOLE.Skill" (titleCase key))}}</label>
-            <input type="number" name="system.skills.{{key}}" value="{{skill}}" min="0" max="4"/>
-            <button type="button" class="rollable" data-skill="{{key}}">{{localize "DYKEPOLE.Roll"}}</button>
-          </div>
-          {{/each}}
-        </div>
-      </div>
-    </div>
-
     <div class="tab" data-group="primary" data-tab="items">
-      <div class="items-grid">
-        <!-- Аспекти -->
-        <div class="item-category">
-          <h3>{{localize "DYKEPOLE.Aspects"}} ({{aspects.length}}/{{system.temp_aspects_max}})</h3>
-          <a class="item-create" data-type="aspect" title="Створити аспект">
-            <i class="fas fa-plus"></i> {{localize "DYKEPOLE.Add"}}
-          </a>
-          <ul class="items-list">
-            {{#each aspects as |item id|}}
-            <li class="item" data-item-id="{{item.id}}">
-              <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-              <h4 class="item-name">{{item.name}}</h4>
-              <span class="item-type">{{item.system.track.value}}/{{item.system.track.max}}</span>
-              <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'DYKEPOLE.Edit'}}">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a class="item-control item-delete" title="{{localize 'DYKEPOLE.Delete'}}">
-                  <i class="fas fa-trash"></i>
-                </a>
-              </div>
-            </li>
-            {{/each}}
-          </ul>
+        <div class="items-grid">
+            <div class="item-category">
+                <header class="category-header"><h3><i class="fas fa-scroll"></i> {{localize "DYKEPOLE.Aspects"}}</h3><a class="item-create" data-type="aspect" title="{{localize 'DYKEPOLE.Add'}}"><i class="fa fa-plus"></i></a></header>
+                <ul class="items-list">
+                    {{#each actor.items as |item id|}}
+                        {{#if (eq item.type "aspect")}}
+                        <li class="item" data-item-id="{{item.id}}">
+                            <img src="{{item.img}}"/><span class="item-name">{{item.name}}</span>
+                            <div class="track" data-path="items.{{item.id}}.system.track.value" data-value="{{item.system.track.value}}">
+                                {{#numLoop item.system.track.max}}
+                                <span class="track-box {{#if (gt ../item.system.track.value this)}}filled{{/if}}" data-index="{{this}}"></span>
+                                {{/numLoop}}
+                            </div>
+                            <div class="item-controls"><a class="item-edit" title="{{localize 'DYKEPOLE.Edit'}}"><i class="fas fa-edit"></i></a><a class="item-delete" title="{{localize 'DYKEPOLE.Delete'}}"><i class="fas fa-trash"></i></a></div>
+                        </li>
+                        {{/if}}
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="item-category">
+                <header class="category-header"><h3><i class="fas fa-shield-alt"></i> {{localize "DYKEPOLE.Equipment"}}</h3><a class="item-create" data-type="equipment" title="{{localize 'DYKEPOLE.Add'}}"><i class="fa fa-plus"></i></a></header>
+                <ul class="items-list">
+                    {{#each actor.items as |item id|}}
+                        {{#if (eq item.type "equipment")}}
+                        <li class="item" data-item-id="{{item.id}}">
+                            <img src="{{item.img}}"/><span class="item-name">{{item.name}}</span>
+                            <div class="item-controls"><a class="item-edit" title="{{localize 'DYKEPOLE.Edit'}}"><i class="fas fa-edit"></i></a><a class="item-delete" title="{{localize 'DYKEPOLE.Delete'}}"><i class="fas fa-trash"></i></a></div>
+                        </li>
+                        {{/if}}
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="item-category">
+                <header class="category-header"><h3><i class="fas fa-gem"></i> {{localize "DYKEPOLE.Shards"}}</h3><a class="item-create" data-type="shard" title="{{localize 'DYKEPOLE.Add'}}"><i class="fa fa-plus"></i></a></header>
+                <ul class="items-list">
+                    {{#each actor.items as |item id|}}
+                        {{#if (eq item.type "shard")}}
+                        <li class="item" data-item-id="{{item.id}}">
+                            <img src="{{item.img}}"/><span class="item-name">{{item.name}}</span>
+                            <div class="item-controls"><a class="item-edit" title="{{localize 'DYKEPOLE.Edit'}}"><i class="fas fa-edit"></i></a><a class="item-delete" title="{{localize 'DYKEPOLE.Delete'}}"><i class="fas fa-trash"></i></a></div>
+                        </li>
+                        {{/if}}
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="item-category">
+                <header class="category-header"><h3><i class="fas fa-map-marked-alt"></i> {{localize "DYKEPOLE.Maps"}}</h3><a class="item-create" data-type="map" title="{{localize 'DYKEPOLE.Add'}}"><i class="fa fa-plus"></i></a></header>
+                <ul class="items-list">
+                    {{#each actor.items as |item id|}}
+                        {{#if (eq item.type "map")}}
+                        <li class="item" data-item-id="{{item.id}}">
+                            <img src="{{item.img}}"/><span class="item-name">{{item.name}}</span>
+                            <div class="item-controls"><a class="item-edit" title="{{localize 'DYKEPOLE.Edit'}}"><i class="fas fa-edit"></i></a><a class="item-delete" title="{{localize 'DYKEPOLE.Delete'}}"><i class="fas fa-trash"></i></a></div>
+                        </li>
+                        {{/if}}
+                    {{/each}}
+                </ul>
+            </div>
         </div>
-
-        <!-- Спорядження -->
-        <div class="item-category">
-          <h3>{{localize "DYKEPOLE.Equipment"}} ({{equipment.length}}/{{system.equipment_max}})</h3>
-          <a class="item-create" data-type="equipment" title="Створити спорядження">
-            <i class="fas fa-plus"></i> {{localize "DYKEPOLE.Add"}}
-          </a>
-          <ul class="items-list">
-            {{#each equipment as |item id|}}
-            <li class="item" data-item-id="{{item.id}}">
-              <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-              <h4 class="item-name">{{item.name}}</h4>
-              <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'DYKEPOLE.Edit'}}">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a class="item-control item-delete" title="{{localize 'DYKEPOLE.Delete'}}">
-                  <i class="fas fa-trash"></i>
-                </a>
-              </div>
-            </li>
-            {{/each}}
-          </ul>
-        </div>
-
-        <!-- Осколки -->
-        <div class="item-category">
-          <h3>{{localize "DYKEPOLE.Shards"}} ({{shards.length}}/{{system.shards_max}})</h3>
-          <a class="item-create" data-type="shard" title="Створити осколок">
-            <i class="fas fa-plus"></i> {{localize "DYKEPOLE.Add"}}
-          </a>
-          <ul class="items-list">
-            {{#each shards as |item id|}}
-            <li class="item" data-item-id="{{item.id}}">
-              <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-              <h4 class="item-name">{{item.name}}</h4>
-              <span class="item-type">{{item.system.type}}</span>
-              <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'DYKEPOLE.Edit'}}">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a class="item-control item-delete" title="{{localize 'DYKEPOLE.Delete'}}">
-                  <i class="fas fa-trash"></i>
-                </a>
-              </div>
-            </li>
-            {{/each}}
-          </ul>
-        </div>
-
-        <!-- Карти -->
-        <div class="item-category">
-          <h3>{{localize "DYKEPOLE.Maps"}} ({{maps.length}}/{{system.maps_max}})</h3>
-          <a class="item-create" data-type="map" title="Створити карту">
-            <i class="fas fa-plus"></i> {{localize "DYKEPOLE.Add"}}
-          </a>
-          <ul class="items-list">
-            {{#each maps as |item id|}}
-            <li class="item" data-item-id="{{item.id}}">
-              <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-              <h4 class="item-name">{{item.name}}</h4>
-              <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'DYKEPOLE.Edit'}}">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a class="item-control item-delete" title="{{localize 'DYKEPOLE.Delete'}}">
-                  <i class="fas fa-trash"></i>
-                </a>
-              </div>
-            </li>
-            {{/each}}
-          </ul>
-        </div>
-
-        <!-- Поранення -->
-        <div class="item-category">
-          <h3>{{localize "DYKEPOLE.Injuries"}}</h3>
-          <a class="item-create" data-type="injury" title="Створити поранення">
-            <i class="fas fa-plus"></i> {{localize "DYKEPOLE.Add"}}
-          </a>
-          <ul class="items-list">
-            {{#each injuries as |item id|}}
-            <li class="item" data-item-id="{{item.id}}">
-              <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-              <h4 class="item-name">{{item.name}}</h4>
-              <span class="item-type">{{item.system.track.value}}/{{item.system.track.max}}</span>
-              <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'DYKEPOLE.Edit'}}">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a class="item-control item-delete" title="{{localize 'DYKEPOLE.Delete'}}">
-                  <i class="fas fa-trash"></i>
-                </a>
-              </div>
-            </li>
-            {{/each}}
-          </ul>
-        </div>
-
-        <!-- Бонуси -->
-        <div class="item-category">
-          <h3>{{localize "DYKEPOLE.Bonuses"}}</h3>
-          <a class="item-create" data-type="bonus" title="Створити бонус">
-            <i class="fas fa-plus"></i> {{localize "DYKEPOLE.Add"}}
-          </a>
-          <ul class="items-list">
-            {{#each bonuses as |item id|}}
-            <li class="item" data-item-id="{{item.id}}">
-              <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-              <h4 class="item-name">{{item.name}}</h4>
-              <span class="item-type">{{item.system.track.value}}/{{item.system.track.max}}</span>
-              <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'DYKEPOLE.Edit'}}">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a class="item-control item-delete" title="{{localize 'DYKEPOLE.Delete'}}">
-                  <i class="fas fa-trash"></i>
-                </a>
-              </div>
-            </li>
-            {{/each}}
-          </ul>
-        </div>
-      </div>
     </div>
   </section>
 </form>

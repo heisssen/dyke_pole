@@ -2,117 +2,37 @@
   <header class="sheet-header">
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields">
-      <h1 class="charname">
-        <input name="name" type="text" value="{{item.name}}" placeholder="Назва предмету"/>
-      </h1>
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'DYKEPOLE.Name'}}"/></h1>
     </div>
   </header>
-
   <section class="sheet-body">
-    {{#if isEquipment}}
+    {{#if (or (eq item.type "equipment") (eq item.type "shard") (eq item.type "map"))}}
     <div class="form-group">
-      <label>{{localize "DYKEPOLE.Value"}}</label>
-      <input type="number" name="system.value" value="{{system.value}}" min="1"/>
+      <label>{{localize "DYKEPOLE.Tags"}}</label>
+      <textarea name="system.tags">{{system.tags}}</textarea>
     </div>
+    {{/if}}
+
+    {{#if (eq item.type "injury")}}
     <div class="form-group">
       <label>{{localize "DYKEPOLE.Description"}}</label>
-      <textarea name="system.tags" placeholder="Опис спорядження...">{{system.tags}}</textarea>
+      <textarea name="system.description">{{system.description}}</textarea>
     </div>
     {{/if}}
-
-    {{#if isShard}}
+    
+    {{#if (eq item.type "faction")}}
     <div class="form-group">
-      <label>{{localize "DYKEPOLE.Type"}}</label>
-      <select name="system.type">
-        <option value="steppe" {{#if (eq system.type "steppe")}}selected{{/if}}>{{localize "DYKEPOLE.Steppe"}}</option>
-        <option value="ruin" {{#if (eq system.type "ruin")}}selected{{/if}}>{{localize "DYKEPOLE.Ruin"}}</option>
-      </select>
+      <label>Ідеал</label>
+      <input type="text" name="system.ideal" value="{{system.ideal}}"/>
     </div>
     <div class="form-group">
-      <label>{{localize "DYKEPOLE.Value"}}</label>
-      <input type="number" name="system.value" value="{{system.value}}" min="1"/>
-    </div>
-    <div class="form-group">
-      <label>{{localize "DYKEPOLE.Description"}}</label>
-      <textarea name="system.tags" placeholder="Опис осколка...">{{system.tags}}</textarea>
-    </div>
-    {{/if}}
-
-    {{#if isMap}}
-    <div class="form-group">
-      <label>{{localize "DYKEPOLE.Value"}}</label>
-      <input type="number" name="system.value" value="{{system.value}}" min="1"/>
-    </div>
-    <div class="form-group">
-      <label>{{localize "DYKEPOLE.Description"}}</label>
-      <textarea name="system.tags" placeholder="Опис карти...">{{system.tags}}</textarea>
-    </div>
-    {{/if}}
-
-    {{#if isInjury}}
-    <div class="form-group">
-      <label>{{localize "DYKEPOLE.Track"}}</label>
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <label>{{localize "DYKEPOLE.Current"}}:</label>
-        <input type="number" name="system.track.value" value="{{system.track.value}}" min="0" max="{{system.track.max}}" style="width: 60px;"/>
-        <span>/</span>
-        <label>{{localize "DYKEPOLE.Max"}}:</label>
-        <input type="number" name="system.track.max" value="{{system.track.max}}" min="1" max="8" style="width: 60px;"/>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>{{localize "DYKEPOLE.Description"}}</label>
-      <textarea name="system.description" placeholder="Опис поранення...">{{system.description}}</textarea>
-    </div>
-    {{/if}}
-
-    {{#if isBonus}}
-    <div class="form-group">
-      <label>{{localize "DYKEPOLE.Track"}}</label>
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <label>{{localize "DYKEPOLE.Current"}}:</label>
-        <input type="number" name="system.track.value" value="{{system.track.value}}" min="0" max="{{system.track.max}}" style="width: 60px;"/>
-        <span>/</span>
-        <label>{{localize "DYKEPOLE.Max"}}:</label>
-        <input type="number" name="system.track.max" value="{{system.track.max}}" min="1" max="5" style="width: 60px;"/>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Здібності бонусу</label>
-      {{editor system.abilities target="system.abilities" button=true owner=owner editable=editable}}
-    </div>
-    {{/if}}
-
-    {{#if isFaction}}
-    <div class="form-group">
-      <label>{{localize "DYKEPOLE.Track"}}</label>
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <label>{{localize "DYKEPOLE.Current"}}:</label>
-        <input type="number" name="system.track.value" value="{{system.track.value}}" min="0" max="{{system.track.max}}" style="width: 60px;"/>
-        <span>/</span>
-        <label>{{localize "DYKEPOLE.Max"}}:</label>
-        <input type="number" name="system.track.max" value="{{system.track.max}}" min="1" max="8" style="width: 60px;"/>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Ідеал фракції</label>
-      <textarea name="system.ideal" placeholder="Основний ідеал або ціль фракції...">{{system.ideal}}</textarea>
-    </div>
-    <div class="form-group">
-      <label>Ключові люди</label>
-      <textarea name="system.key_people" placeholder="Важливі персонажі фракції...">{{system.key_people}}</textarea>
+      <label>Ключові особи</label>
+      <input type="text" name="system.key_people" value="{{system.key_people}}"/>
     </div>
     <div class="form-group">
       <label>Активи</label>
-      <textarea name="system.assets" placeholder="Ресурси та активи фракції...">{{system.assets}}</textarea>
+      <textarea name="system.assets">{{system.assets}}</textarea>
     </div>
     {{/if}}
-
-    {{#unless (or isInjury isBonus isFaction)}}
-    <div class="form-group">
-      <label>{{localize "DYKEPOLE.Description"}}</label>
-      <textarea name="system.tags" placeholder="Опис предмету...">{{system.tags}}</textarea>
-    </div>
-    {{/unless}}
   </section>
 </form>

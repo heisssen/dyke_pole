@@ -1,5 +1,4 @@
 import { DykePoleItemSheet } from "./item-sheet.js";
-
 export class DykePoleAspectSheet extends DykePoleItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -8,14 +7,5 @@ export class DykePoleAspectSheet extends DykePoleItemSheet {
       width: 560,
       height: 600
     });
-  }
-
-  getData() {
-    const context = super.getData();
-    
-    // Додаткові дані для аспектів
-    context.isAspect = true;
-    
-    return context;
   }
 }
