@@ -1,5 +1,55 @@
 export class DykePoleActor extends Actor {
   
+  prepareData() {
+    super.prepareData();
+    
+    if (this.type === 'character') {
+      this._prepareCharacterData();
+    }
+    
+    if (this.type === 'camp') {
+      this._prepareCampData();
+    }
+  }
+
+  _prepareCharacterData() {
+    const systemData = this.system;
+    
+    // Обчислення максимальних значень для лічильників
+    systemData.counters.steppe.track_max = 3;
+    systemData.counters.ruin.track_max = 3;
+    
+    // Перевірка лімітів
+    if (systemData.counters.steppe.track > systemData.counters.steppe.track_max) {
+      systemData.counters.steppe.track = systemData.counters.steppe.track_max;
+    }
+    if (systemData.counters.ruin.track > systemData.counters.ruin.track_max) {
+      systemData.counters.ruin.track = systemData.counters.ruin.track_max;
+    }
+  }
+
+  _prepareCampData() {
+    const systemData = this.system;
+    
+    // Перевірка лімітів рейтингів табору
+    Object.keys(systemData.ratings).forEach(rating => {
+      if (systemData.ratings[rating].value > systemData.ratings[rating].max) {
+        systemData.ratings[rating].value = systemData.ratings[rating].max;
+      }
+      if (systemData.ratings[rating].value < 0) {
+        systemData.ratings[rating].value = 0;
+      }
+    });
+    
+    // Перевірка лімітів вантажу
+    if (systemData.cargo.value > systemData.cargo.max) {
+      systemData.cargo.value = systemData.cargo.max;
+    }
+    if (systemData.cargo.value < 0) {
+      systemData.cargo.value = 0;
+    }
+  }
+  
   async rollAction(skillKey, { advantage = 0, cut = 0, impact = "normal" } = {}) {
     const skillValue = this.system.skills[skillKey] || 0;
     const dicePool = skillValue + advantage;
@@ -97,13 +147,13 @@ export class DykePoleActor extends Actor {
     let resultText = "";
     let resultClass = "";
     if (highestResult === 6) { 
-      resultText = "Тріумф";
+      resultText = game.i18n.localize("DYKEPOLE.Triumph");
       resultClass = "triumph";
     } else if (highestResult >= 4) { 
-      resultText = "Конфлікт";
+      resultText = game.i18n.localize("DYKEPOLE.Conflict");
       resultClass = "conflict";
     } else { 
-      resultText = "Лихо";
+      resultText = game.i18n.localize("DYKEPOLE.Mishap");
       resultClass = "mishap";
     }
 
@@ -124,60 +174,5 @@ export class DykePoleActor extends Actor {
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: roll
     });
-  }
-
-  // Допоміжний метод для отримання даних персонажа
-  prepareData() {
-    super.prepareData();
-    
-    // Додаткова обробка даних для персонажів
-    if (this.type === 'character') {
-      this._prepareCharacterData();
-    }
-    
-    // Додаткова обробка даних для табору
-    if (this.type === 'camp') {
-      this._prepareCampData();
-    }
-  }
-
-  _prepareCharacterData() {
-    const actorData = this;
-    const systemData = actorData.system;
-    
-    // Обчислення максимальних значень для лічильників
-    systemData.counters.steppe.track_max = 3;
-    systemData.counters.ruin.track_max = 3;
-    
-    // Перевірка лімітів
-    if (systemData.counters.steppe.track > systemData.counters.steppe.track_max) {
-      systemData.counters.steppe.track = systemData.counters.steppe.track_max;
-    }
-    if (systemData.counters.ruin.track > systemData.counters.ruin.track_max) {
-      systemData.counters.ruin.track = systemData.counters.ruin.track_max;
-    }
-  }
-
-  _prepareCampData() {
-    const actorData = this;
-    const systemData = actorData.system;
-    
-    // Перевірка лімітів рейтингів табору
-    Object.keys(systemData.ratings).forEach(rating => {
-      if (systemData.ratings[rating].value > systemData.ratings[rating].max) {
-        systemData.ratings[rating].value = systemData.ratings[rating].max;
-      }
-      if (systemData.ratings[rating].value < 0) {
-        systemData.ratings[rating].value = 0;
-      }
-    });
-    
-    // Перевірка лімітів вантажу
-    if (systemData.cargo.value > systemData.cargo.max) {
-      systemData.cargo.value = systemData.cargo.max;
-    }
-    if (systemData.cargo.value < 0) {
-      systemData.cargo.value = 0;
-    }
   }
 }

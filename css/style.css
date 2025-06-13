@@ -1,110 +1,219 @@
-/* General Sheet Styles */
-.dykepole .sheet-header {
-  flex: 0 0 120px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-}
-.dykepole .sheet-header .profile-img {
-  height: 100px;
-  width: 100px;
-  border: 2px solid #555;
-  object-fit: cover;
-  margin-right: 10px;
-}
-.dykepole .sheet-header .header-fields {
-  flex: 1;
-}
-.dykepole .sheet-header .charname {
-  height: 50px;
-  padding: 0px;
-  margin: 5px 0;
-  border-bottom: 1px solid #ccc;
-}
-.dykepole .sheet-header .charname input {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  border: 0;
-}
-.dykepole .sheet-tabs {
-  margin-top: 10px;
+.dykepole {
+  font-family: "Roboto", sans-serif;
 }
 
-/* Character Sheet Specific */
-.dykepole .skills-grid, .dykepole .ratings-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 5px;
-  margin-top: 10px;
-}
-.dykepole .skill-entry, .dykepole .rating-entry {
+.dykepole .sheet-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 2px solid #000;
+  background: #f5f5f5;
+}
+
+.dykepole .profile-img {
+  border: 2px solid #000;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.dykepole .charname input {
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+  width: 100%;
+}
+
+.dykepole .sheet-tabs {
+  border-bottom: 1px solid #ccc;
+}
+
+.dykepole .sheet-tabs .item {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.dykepole .sheet-tabs .item.active {
+  border-bottom-color: #007bff;
+  background: #f8f9fa;
+}
+
+.dykepole .skills-section {
+  margin: 20px 0;
+}
+
+.dykepole .skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.dykepole .skill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.dykepole .skill label {
+  flex: 1;
+  font-weight: bold;
+}
+
+.dykepole .skill input {
+  width: 50px;
+  text-align: center;
+  padding: 4px;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
-.dykepole .skill-label, .dykepole .rating-label {
-  font-weight: bold;
+
+.dykepole .rollable {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 8px;
   cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
 }
-.dykepole .skill-label:hover, .dykepole .rating-label:hover {
-  text-shadow: 0 0 5px red;
+
+.dykepole .rollable:hover {
+  background: #218838;
 }
-.dykepole .items-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+
+.dykepole .knowledge-section {
+  margin: 20px 0;
 }
+
+.dykepole .knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.dykepole .knowledge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.dykepole .knowledge label {
+  flex: 1;
+  font-weight: bold;
+}
+
+.dykepole .knowledge input {
+  width: 50px;
+  text-align: center;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.dykepole .counters-section {
+  margin: 20px 0;
+}
+
+.dykepole .counter {
+  margin: 15px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+
+.dykepole .counter h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.dykepole .counter-fields {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dykepole .counter-fields label {
+  font-weight: bold;
+}
+
+.dykepole .counter-fields input {
+  width: 60px;
+  text-align: center;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.dykepole .items-section {
+  margin: 20px 0;
+}
+
 .dykepole .items-list .item {
   display: flex;
   align-items: center;
-  padding: 3px;
-  border-bottom: 1px solid #ddd;
-}
-.dykepole .items-list .item-name {
-  flex: 1;
-  margin-left: 5px;
-}
-.dykepole .items-list .item-controls {
-  flex: 0 0 50px;
-  text-align: right;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
 }
 
-/* Chat Card Styles */
-.dykepole-card {
-  border: 1px solid #7a7971;
-  border-radius: 5px;
+.dykepole .items-list .item:hover {
+  background: #f5f5f5;
 }
-.dykepole-card .card-header {
-  padding: 5px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #7a7971;
-}
-.dykepole-card .card-content {
-  padding: 10px;
-}
-.dykepole-card .roll-result {
-  text-align: center;
-  margin-bottom: 10px;
+
+.dykepole .item-name {
+  flex: 1;
+  margin-left: 10px;
   font-weight: bold;
-  font-size: 1.5em;
 }
-.triumph { color: green; }
-.conflict { color: orange; }
-.mishap { color: darkred; }
-.dykepole-card .roll-twist { color: blue; text-align: center; }
-.dykepole-card .die {
-  display: inline-block;
+
+.dykepole .item-type {
+  margin-left: 10px;
+  color: #666;
+  font-style: italic;
+}
+
+.dykepole .item-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.dykepole .item-controls a {
+  cursor: pointer;
+  color: #007bff;
+  padding: 4px;
+}
+
+.dykepole .item-controls a:hover {
+  color: #0056b3;
+}
+
+.dykepole .dialog {
+  min-width: 300px;
+}
+
+.dykepole .dialog .form-group {
+  margin: 10px 0;
+}
+
+.dykepole .dialog .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.dykepole .dialog .form-group input,
+.dykepole .dialog .form-group select {
+  width: 100%;
   padding: 5px;
-  border: 1px solid #000;
+  border: 1px solid #ccc;
   border-radius: 3px;
-  margin: 2px;
-  min-width: 20px;
-  text-align: center;
 }
