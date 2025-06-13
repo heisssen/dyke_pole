@@ -1,0 +1,110 @@
+/* General Sheet Styles */
+.dykepole .sheet-header {
+  flex: 0 0 120px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.dykepole .sheet-header .profile-img {
+  height: 100px;
+  width: 100px;
+  border: 2px solid #555;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.dykepole .sheet-header .header-fields {
+  flex: 1;
+}
+.dykepole .sheet-header .charname {
+  height: 50px;
+  padding: 0px;
+  margin: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+.dykepole .sheet-header .charname input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+}
+.dykepole .sheet-tabs {
+  margin-top: 10px;
+}
+
+/* Character Sheet Specific */
+.dykepole .skills-grid, .dykepole .ratings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 5px;
+  margin-top: 10px;
+}
+.dykepole .skill-entry, .dykepole .rating-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.dykepole .skill-label, .dykepole .rating-label {
+  font-weight: bold;
+  cursor: pointer;
+}
+.dykepole .skill-label:hover, .dykepole .rating-label:hover {
+  text-shadow: 0 0 5px red;
+}
+.dykepole .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.dykepole .items-list .item {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  border-bottom: 1px solid #ddd;
+}
+.dykepole .items-list .item-name {
+  flex: 1;
+  margin-left: 5px;
+}
+.dykepole .items-list .item-controls {
+  flex: 0 0 50px;
+  text-align: right;
+}
+
+/* Chat Card Styles */
+.dykepole-card {
+  border: 1px solid #7a7971;
+  border-radius: 5px;
+}
+.dykepole-card .card-header {
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #7a7971;
+}
+.dykepole-card .card-content {
+  padding: 10px;
+}
+.dykepole-card .roll-result {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+.triumph { color: green; }
+.conflict { color: orange; }
+.mishap { color: darkred; }
+.dykepole-card .roll-twist { color: blue; text-align: center; }
+.dykepole-card .die {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  margin: 2px;
+  min-width: 20px;
+  text-align: center;
+}

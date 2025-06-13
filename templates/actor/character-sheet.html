@@ -1,0 +1,37 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Ім'я персонажа"/></h1>
+    </div>
+  </header>
+  <nav class="sheet-tabs tabs" data-group="primary"><a class="item" data-tab="main">Головне</a><a class="item" data-tab="items">Аспекти та Ресурси</a></nav>
+  <section class="sheet-body">
+    <div class="tab main" data-group="primary" data-tab="main">
+      <fieldset><legend>{{localize "DYKEPOLE.Skills"}}</legend>
+        <div class="skills-grid">
+          {{#each system.skills as |skill key|}}
+          <div class="skill-entry"><a class="skill-label rollable" data-skill="{{key}}">{{localize (concat "DYKEPOLE.Skill" (titleCase key))}}</a><input type="number" name="system.skills.{{key}}" value="{{skill}}" min="0" max="3" /></div>
+          {{/each}}
+        </div>
+      </fieldset>
+      <fieldset><legend>{{localize "DYKEPOLE.Counters"}}</legend>
+        <div class="counters-grid">
+            <div class="counter"><h3>{{localize "DYKEPOLE.Steppe"}}</h3><span>{{localize "DYKEPOLE.Level"}} {{system.counters.steppe.level}} | {{localize "DYKEPOLE.Track"}} {{system.counters.steppe.track}}/{{system.counters.steppe.track_max}}</span></div>
+            <div class="counter"><h3>{{localize "DYKEPOLE.Ruin"}}</h3><span>{{localize "DYKEPOLE.Level"}} {{system.counters.ruin.level}} | {{localize "DYKEPOLE.Track"}} {{system.counters.ruin.track}}/{{system.counters.ruin.track_max}}</span></div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="tab items" data-group="primary" data-tab="items">
+        <fieldset><legend>{{localize "DYKEPOLE.Aspects"}}</legend>
+            <ul class="items-list">
+            {{#each actor.items as |item id|}}
+              {{#if (eq item.type "aspect")}}
+                <li class="item" data-item-id="{{item.id}}"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/><h4 class="item-name">{{item.name}}</h4><div class="item-controls"><a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></div></li>
+              {{/if}}
+            {{/each}}
+            </ul>
+        </fieldset>
+    </div>
+  </section>
+</form>

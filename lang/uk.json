@@ -1,0 +1,33 @@
+{
+  "DYKEPOLE.SkillAthletics": "Атлетика ",
+  "DYKEPOLE.SkillArtistry": "Артистичність ",
+  "DYKEPOLE.SkillTrickery": "Виверт ",
+  "DYKEPOLE.SkillWill": "Воля ",
+  "DYKEPOLE.SkillBrawl": "Герць ",
+  "DYKEPOLE.SkillCare": "Догляд ",
+  "DYKEPOLE.SkillResearch": "Дослідження ",
+  "DYKEPOLE.SkillHealing": "Знахарство ",
+  "DYKEPOLE.SkillManipulation": "Маніпуляція ",
+  "DYKEPOLE.SkillHunting": "Полювання ",
+  "DYKEPOLE.SkillCrafting": "Ремісництво ",
+  "DYKEPOLE.SkillSenses": "Чуття ",
+
+  "DYKEPOLE.RatingSecurity": "Захищеність ",
+  "DYKEPOLE.RatingSpeed": "Швидкість ",
+  "DYKEPOLE.RatingProvision": "Забезпеченість ",
+  "DYKEPOLE.RatingCohesion": "Згуртованість ",
+
+  "DYKEPOLE.Skills": "Навички",
+  "DYKEPOLE.Knowledge": "Знання",
+  "DYKEPOLE.Counters": "Лічильники",
+  "DYKEPOLE.Steppe": "Степ",
+  "DYKEPOLE.Ruin": "Руїна",
+  "DYKEPOLE.Level": "Рівень",
+  "DYKEPOLE.Track": "Трек",
+  "DYKEPOLE.Aspects": "Аспекти",
+  "DYKEPOLE.RollResult": "Результат Кидка",
+  "DYKEPOLE.Triumph": "Тріумф ",
+  "DYKEPOLE.Conflict": "Конфлікт ",
+  "DYKEPOLE.Mishap": "Лихо ",
+  "DYKEPOLE.Twist": "Твіст! "
+}
