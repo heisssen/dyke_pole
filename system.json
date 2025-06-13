@@ -49,5 +49,7 @@
     }
   ],
   "gridDistance": 1,
-  "gridUnits": "м"
+  "gridUnits": "м",
+  "manifest": "https://raw.githubusercontent.com/heisssen/dyke_pole/main/system.json",
+  "download": "https://github.com/heisssen/dyke_pole/archive/refs/tags/v0.9.9.zip"
 }
