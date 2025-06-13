@@ -2,44 +2,27 @@
   "Actor": {
     "types": ["character", "camp"],
     "character": {
+      "player": "",
+      "origin": "",
+      "backstory": "",
+      "role": "",
+      "aspirations": "",
+      "bonds": [
+        { "name": "", "value": 0 },
+        { "name": "", "value": 0 },
+        { "name": "", "value": 0 }
+      ],
       "skills": {
-        "athletics": 0,
-        "artistry": 0,
-        "trickery": 0,
-        "will": 0,
-        "brawl": 0,
-        "care": 0,
-        "research": 0,
-        "healing": 0,
-        "manipulation": 0,
-        "hunting": 0,
-        "crafting": 0,
-        "senses": 0
+        "athletics": 0, "brawl": 0, "manipulation": 0,
+        "artistry": 0, "research": 0, "hunting": 0,
+        "trickery": 0, "care": 0, "crafting": 0,
+        "will": 0, "healing": 0, "senses": 0
       },
-      "knowledge": {
-        "steppe": 0,
-        "ruin": 0,
-        "oldWorld": 0
-      },
+      "knowledge": { "steppe": 0, "ruin": 0, "oldWorld": 0 },
       "counters": {
-        "steppe": {
-          "level": 0,
-          "track": 0,
-          "track_max": 3
-        },
-        "ruin": {
-          "level": 0,
-          "track": 0,
-          "track_max": 3
-        }
-      },
-      "aspirations": [],
-      "bonds_max": 3,
-      "shards_max": 4,
-      "equipment_max": 8,
-      "maps_max": 4,
-      "projects_max": 3,
-      "temp_aspects_max": 3
+        "steppe": { "level": 0, "track": 0, "track_max": 5 },
+        "ruin": { "level": 0, "track": 0, "track_max": 5 }
+      }
     },
     "camp": {
       "ratings": {
@@ -49,57 +32,18 @@
         "cohesion": { "value": 2, "max": 4 }
       },
       "aspiration": "",
-      "cargo": {
-        "value": 0,
-        "max": 6
-      },
-      "projects_max": 3
+      "cargo": { "value": 0, "max": 6 }
     }
   },
   "Item": {
-    "types": ["aspect", "equipment", "shard", "map", "injury", "bonus", "faction"],
-    "aspect": {
-      "track": {
-        "value": 8,
-        "max": 8
-      },
-      "abilities": ""
-    },
-    "equipment": {
-      "tags": "",
-      "value": 1
-    },
-    "shard": {
-      "type": "steppe",
-      "tags": "",
-      "value": 2
-    },
-    "map": {
-      "tags": "",
-      "value": 2
-    },
-    "injury": {
-      "track": {
-        "value": 1,
-        "max": 8
-      },
-      "description": ""
-    },
-    "bonus": {
-       "track": {
-        "value": 3,
-        "max": 3
-      },
-      "abilities": ""
-    },
-    "faction": {
-      "track": {
-        "value": 5,
-        "max": 5
-      },
-      "ideal": "",
-      "key_people": "",
-      "assets": ""
-    }
+    "types": ["aspect", "equipment", "shard", "map", "injury", "bonus", "faction", "project"],
+    "aspect": { "track": { "value": 0, "max": 5 }, "abilities": "" },
+    "equipment": { "tags": "" },
+    "shard": { "tags": "" },
+    "map": { "tags": "" },
+    "injury": { "track": { "value": 0, "max": 3 }, "abilities": "" },
+    "bonus": { "track": { "value": 0, "max": 3 }, "abilities": "" },
+    "project": { "track": { "value": 0, "max": 5 } },
+    "faction": { "ideal": "", "key_people": "", "assets": "" }
   }
 }

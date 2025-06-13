@@ -3,17 +3,33 @@
   "title": "Дике Поле",
   "description": "Гра про химерні подорожі безмежним Степом.",
   "version": "0.4.1",
-  "authors": [ { "name": "Святослав Демченко та Євген Мокеєв" } ],
-  "compatibility": { "minimum": "11", "verified": "12" },
-  "esmodules": [ "scripts/main.js" ],
-  "styles": [ "css/style.css" ],
-  "packs": [
-    { "name": "aspects", "label": "Аспекти", "system": "dyke-pole", "path": "packs/aspects.db", "type": "Item" },
-    { "name": "equipment", "label": "Спорядження", "system": "dyke-pole", "path": "packs/equipment.db", "type": "Item" },
-    { "name": "characters", "label": "Готові персонажі", "system": "dyke-pole", "path": "packs/characters.db", "type": "Actor" }
+  "authors": [
+    {
+      "name": "Святослав Демченко та Євген Мокеєв"
+    }
   ],
-  "languages": [ { "lang": "uk", "name": "Ukrainian", "path": "lang/uk.json" } ],
-  "grid": { "distance": 1, "units": "м" },
+  "compatibility": {
+    "minimum": "11",
+    "verified": "12"
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "css/style.css"
+  ],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "uk",
+      "name": "Ukrainian",
+      "path": "lang/uk.json"
+    }
+  ],
+  "grid": {
+    "distance": 1,
+    "units": "м"
+  },
   "manifest": "https://raw.githubusercontent.com/heisssen/dyke_pole/main/system.json",
   "download": "https://github.com/heisssen/dyke_pole/archive/refs/tags/v0.4.1.zip"
 }
