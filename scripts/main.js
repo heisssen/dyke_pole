@@ -10,6 +10,48 @@ Hooks.once('init', async function() {
   // Реєстрація класу актора
   CONFIG.Actor.documentClass = DykePoleActor;
 
+  // Реєстрація Handlebars helpers
+  Handlebars.registerHelper('join', function(array, separator) {
+    if (Array.isArray(array)) {
+      return array.join(separator || ', ');
+    }
+    return array || '';
+  });
+
+  Handlebars.registerHelper('concat', function() {
+    let result = '';
+    for (let i = 0; i < arguments.length - 1; i++) {
+      result += arguments[i];
+    }
+    return result;
+  });
+
+  Handlebars.registerHelper('titleCase', function(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  });
+
+  Handlebars.registerHelper('eq', function(a, b) {
+    return a === b;
+  });
+
+  Handlebars.registerHelper('gt', function(a, b) {
+    return a > b;
+  });
+
+  Handlebars.registerHelper('or', function() {
+    for (let i = 0; i < arguments.length - 1; i++) {
+      if (arguments[i]) return true;
+    }
+    return false;
+  });
+
+  Handlebars.registerHelper('unless', function(conditional, options) {
+    if (!conditional) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  });
+
   // Попереднє завантаження шаблонів
   const templatePaths = [
     'systems/dyke-pole/templates/actor/character-sheet.html',

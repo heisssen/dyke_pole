@@ -64,7 +64,11 @@
       <div class="aspirations-section">
         <h2>{{localize "DYKEPOLE.Aspirations"}}</h2>
         <div class="aspirations-list">
-          <textarea name="system.aspirations" placeholder="Прагнення персонажа...">{{join system.aspirations "\n"}}</textarea>
+          {{#if system.aspirations}}
+            <textarea name="system.aspirations">{{#if (eq (typeof system.aspirations) "string")}}{{system.aspirations}}{{else}}{{join system.aspirations "\n"}}{{/if}}</textarea>
+          {{else}}
+            <textarea name="system.aspirations" placeholder="Прагнення персонажа..."></textarea>
+          {{/if}}
         </div>
       </div>
     </div>
